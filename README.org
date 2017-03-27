@@ -1,0 +1,3 @@
+#+TITLE: SF Stars
+SF Stars is an urban planetarium for the city of San Francisco built in JavaScript with the help of the D3.js library.
+The development README is available [[file:docs/README.org][here]].

@@ -1,0 +1,105 @@
+#+TITLE: SF Stars Development README
+* Background
+SF Stars is an urban planetarium for the city of San Francisco built in JavaScript with the help of the D3.js library.
+
+The app allows users to see the San Francisco night sky and to learn about the constellations visible to the naked eye. It is simple, easy to use, and requires nothing more to use than a modern web browser. It's goal is to help residents of SF connect to the stars above them.
+* Functionality & MVP
+When the MVP is complete, users will be able to...
+
+1. See the night sky of San Francisco
+   - Stars visible to the naked eye in San Francisco after sunset, stretched over a rounded sky
+   - The skyline of downtown SF
+2. Be invited to click on a star
+   - Certain stars will shine with greater brilliance than the rest, inviting users to click on them (see 'Wireframes & Flow' below)
+3. Discover a constellation
+   - Clicking on a star displays an image or a stick figure of the constellation it is a member of
+4. Win by discovering all constellations
+   - A counter tracks the number of constellations remaining to be discovered
+   - After discovering all constellations, users are rewarded by a modal announcing their victory
+5. Move to another season
+   - After winning, the sky is reset in the next season, and the process begins again
+
+Note: All stars visible will be part of constellations, so there will be no 'wrong' clicks (beyond click on constellations that have already been found). The app is not a high-scoring game but rather an explorative flow.
+* Wireframes & Flow
+The app opens immediately to its main view, of the night sky of San Francisco:
+
+[[file:wireframes/sf_stars.jpg]]
+
+A star shines very brightly to suggest that it should be clicked on:
+
+[[file:wireframes/star_shine.jpg]]
+
+When the user clicks on that star, a small popping noise plays, an image of the constellation and its name appears, and the "constellations found" count increases:
+
+[[file:wireframes/constellation_found.jpg]]
+
+/Note: Red circles are from emphasis in the wireframe and will not be included in the app/
+
+Next, another star in a different constellation shines and the process continues.
+
+* Architecture and Technologies
+The project will be implemented with the following technologies:
+- ~d3.js~ for DOM manipulation
+- Vanilla JavaScript for the overall structure
+
+The app will take advantage of existing open-source astronomical data such as the following:
+- Constellation illustrations from NASA: [[http://hubblesource.stsci.edu/sources/illustrations/constellations/][link]]
+- Star position, color, and apparent magnitude information from Yale: [[http://tdc-www.harvard.edu/catalogs/bsc5.html][link]]
+
+The main aspects of d3 functionality that will be used include
+- SVG creation (appending to DOM)
+- Projections (~d3.geo.js~)
+- CSV reading
+- Responding to clicks
+
+Webpack will be used to bundle files. Components that will be bundled:
+- ~view.js~: The main view of the application, along with the logic for moving between seasons
+- ~sky.js~: The sky projection, with stars and constellation information
+
+There will be a ~data~ subdirectory containing the necessary JSON files for positioning as well as the constellation images.
+* Implementation Timeline
+** Day 1 - Build the night sky
+- Learn the relevant DOM manipulation tools in d3
+  - Start a flat projection (likely ~equirectangular~)
+  - Add stars for a few constellations, position them correctly on the projection
+  - Add corresponding constellation images, position them correctly on the projection
+  - Add corresponding constellation names, position them correctly on the projection
+  - Convert to a rounded projection (likely ~orthographic~ ~azimuthalEqualArea~)
+  - Make stars respond to clicks
+- Begin without bundling, to keep focus on learning d3 and speed reload / response time while testing
+** Day 2 - Build the application container
+- Convert to webpack bundle
+- Build main application view
+  - Zoom projection to appear as the night sky from human perspective
+  - Add skyline
+  - Add title text and buttons
+- Hide and show constellation images based on clicks
+** Day 3 - Add levels
+- All logic to count found and remaining constellations
+- Add seasons
+  - Add the ability to move to a new season after one is completed
+  - Add sample stars, constellation images, and names for additional seasons
+** Day 4 - Improve UX
+- Improve display
+  - Improve sky color to a semi-realistic fade from city lights at the bottom to dark on top
+  - Make stars twinkle
+  - Add logic to have certain stars shine very brightly to invite clicks
+- Add sounds
+  - A pleasing pop when new constellations are discovered
+  - A gentle negative when old constellations are re-clicked
+- Add more stars, constellation images, and names
+* Bonus Features
+- A quiz format
+  - A modal opens in the middle of the screen and asks "Can you find Orion?"
+  - If you select one of the stars in Orion, you get a point
+- Additional constellations
+  - As an MVP, the app will only feature a limited number of constellations
+  - This bonus feature would mean adding more consetellations to the database
+- Other cardinal directions
+  - As an MVP, the app will only feature the constellations in one direction
+  - This bonus feature would mean creating new views with additional foregrounds and adding in more constellations to find
+- Non-star objects
+  - Planets, the moon
+  - This would require that the app allow you to set the date and time beyond simply specifying the season
+- A sunset animation
+  - The app could start with an animation of sunset, followed by the stars rising
