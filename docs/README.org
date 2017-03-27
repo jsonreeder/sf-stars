@@ -18,6 +18,7 @@ When the MVP is complete, users will be able to...
    - After discovering all constellations, users are rewarded by a modal announcing their victory
 5. Move to another season
    - After winning, the sky is reset in the next season, and the process begins again
+6. Read a production README
 
 Note: All stars visible will be part of constellations, so there will be no 'wrong' clicks (beyond click on constellations that have already been found). The app is not a high-scoring game but rather an explorative flow.
 * Wireframes & Flow
