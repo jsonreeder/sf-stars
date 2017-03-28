@@ -1,17 +1,17 @@
 // Initialize variables
 
-const width = 1000
-const height = 200
+const width = 2500
+const height = 600
 
 const svg = d3.select('div.sky-container')
   .append('svg')
   .attr('width', width)
   .attr('height', height)
 
-const projection = d3.geo.orthographic()
-  .scale(280)
-  .rotate([60, 20, -40])
-  .clipAngle(90)
+const projection = d3.geo.equirectangular()
+  .rotate([25, 0, -37.77])
+  .scale(400)
+  .translate([1250, 610])
 
 const path = d3.geo.path()
   .projection(projection)
@@ -73,6 +73,7 @@ d3.json('data/stars.json', data => {
       .attr('x', d => d[0])
       .attr('y', d => d[1])
       .text(d => d.name)
+      .attr('class', 'constellation-label')
   }
 
   render()
@@ -80,10 +81,11 @@ d3.json('data/stars.json', data => {
 
 // Add to DOM
 
-svg.append('path')
-  .datum(graticule)
-  .attr('d', path)
-  .attr('class', 'graticule')
+// Graticule
+// svg.append('path')
+//   .datum(graticule)
+//   .attr('d', path)
+//   .attr('class', 'graticule')
 
 svg.append('g')
   .attr('class', 'stars')
