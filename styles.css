@@ -16,3 +16,8 @@ body {
   justify-content: center;
   margin: 10px;
 }
+
+.graticule {
+  opacity: 0.4;
+  stroke: green;
+}
