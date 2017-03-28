@@ -21,3 +21,8 @@ body {
   opacity: 0.4;
   stroke: green;
 }
+
+.stars {
+  fill: #fff;
+  stroke: #000;
+}
