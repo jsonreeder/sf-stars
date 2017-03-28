@@ -73,6 +73,7 @@ d3.json('data/stars.json', data => {
       .attr('x', d => d[0])
       .attr('y', d => d[1])
       .text(d => d.name)
+      .attr('class', 'constellation-label')
   }
 
   render()
