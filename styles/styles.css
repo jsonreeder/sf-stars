@@ -3,7 +3,7 @@ body {
   box-sizing: border-box;
   display: flex;
   font-family: sans-serif;
-  height: 98vh;
+  height: 100vh;
 }
 
 .sky-container {
