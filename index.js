@@ -1,17 +1,16 @@
 // Initialize variables
 
 const width = 1000
-const height = 200
+const height = 280
 
 const svg = d3.select('div.sky-container')
   .append('svg')
   .attr('width', width)
   .attr('height', height)
 
-const projection = d3.geo.orthographic()
-  .scale(280)
-  .rotate([60, 20, -40])
-  .clipAngle(90)
+const projection = d3.geo.equirectangular()
+  .rotate([25, 0, -37.77])
+  // .translate([600, 200])
 
 const path = d3.geo.path()
   .projection(projection)
