@@ -19,7 +19,8 @@ body {
 
 .sky-container {
   align-items: center;
-  background: linear-gradient(#190807 50%, #37150A, #7A3C00);
+  /* background: linear-gradient(#190807 50%, #37150A, #7A3C00); */
+  background: black;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   box-sizing: border-box;
@@ -44,4 +45,23 @@ body {
   text-transform: lowercase;
   font-family: 'Space Mono', monospace;
   text-shadow: 0 0 20px yellow;
+}
+
+.title {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  background: #7A3C00;
+  height: 100px;
+}
+
+h1 {
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  font-family: 'Bungee', sans-serif;
+  text-shadow: 3px 3px 1px rgb(42, 38, 38)
 }
