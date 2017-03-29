@@ -4,6 +4,7 @@ body {
   display: flex;
   font-family: 'Karla', sans-serif;
   height: 100vh;
+  overflow: hidden;
   width: 100%;
 }
 
