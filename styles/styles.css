@@ -8,20 +8,15 @@ body {
 }
 
 .game-container {
-  border: 5px solid black;
-  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  margin: 30px;
-  max-width: 1010px;
-  width: 93%;
+  max-width: 2500px;
+  width: 100%;
 }
 
 .sky-container {
   align-items: center;
-  background: linear-gradient(#190807 50%, #37150A, #7A3C00);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  background: linear-gradient(#190807 60%, #37150A, #7A3C00);
   box-sizing: border-box;
   justify-content: center;
   overflow: scroll;
@@ -39,22 +34,21 @@ body {
 
 .constellation-label {
   fill: orangered;
-  stroke: black;
-  stroke-width: .3px;
-  text-transform: lowercase;
   font-family: 'Space Mono', monospace;
+  stroke-width: .3px;
+  stroke: black;
   text-shadow: 0 0 20px yellow;
+  text-transform: lowercase;
 }
 
 .title {
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  padding: 10px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   background: #7A3C00;
+  display: flex;
+  flex: 1;
   height: 100px;
+  justify-content: flex-end;
+  padding: 30px;
 }
 
 h1 {
@@ -62,5 +56,5 @@ h1 {
   font-size: 50px;
   font-weight: bold;
   font-family: 'Bungee', sans-serif;
-  text-shadow: 3px 3px 1px rgb(42, 38, 38)
+  text-shadow: 4px 4px 5px rgb(42, 38, 38)
 }
