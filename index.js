@@ -81,10 +81,11 @@ d3.json('data/stars.json', data => {
 
 // Add to DOM
 
-svg.append('path')
-  .datum(graticule)
-  .attr('d', path)
-  .attr('class', 'graticule')
+// Graticule
+// svg.append('path')
+//   .datum(graticule)
+//   .attr('d', path)
+//   .attr('class', 'graticule')
 
 svg.append('g')
   .attr('class', 'stars')
