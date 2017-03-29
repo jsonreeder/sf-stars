@@ -7,17 +7,24 @@ body {
   width: 100%;
 }
 
+.game-container {
+  border: 5px solid black;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  max-width: 1010px;
+  width: 93%;
+}
+
 .sky-container {
   align-items: center;
-  background: black;
-  border: 1px solid white;
+  background: linear-gradient(#190807 50%, #37150A, #7A3C00);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   box-sizing: border-box;
-  display: flex;
-  flex: 1;
   justify-content: center;
-  margin: 10px;
   overflow: scroll;
-  width: 100%
 }
 
 .graticule {
