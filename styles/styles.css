@@ -17,7 +17,8 @@ body {
 
 .sky-container {
   align-items: center;
-  background: linear-gradient(#190807 60%, #37150A, #7A3C00);
+  /* background: linear-gradient(#190807 60%, #37150A, #7A3C00); */
+  background: black;
   box-sizing: border-box;
   justify-content: center;
   overflow: scroll;
