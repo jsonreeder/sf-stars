@@ -4,8 +4,8 @@ const width = 2500
 const height = 600
 
 const svg = d3.select('div.sky-container')
-      .append('svg')
-      .attr('width', width)
+  .append('svg')
+  .attr('width', width)
   .attr('height', height)
 
 const projection = d3.geo.equirectangular()
@@ -18,6 +18,10 @@ const path = d3.geo.path()
 
 const graticule = d3.geo.graticule()
 
+const radius = d3.scale.linear()
+  .domain([-1, 5])
+  .range([8, 1])
+
 const renderStars = (...starArrays) => {
   const stars = svg.select('.stars')
     .selectAll('circle')
@@ -25,7 +29,7 @@ const renderStars = (...starArrays) => {
 
   stars.enter()
     .append('circle')
-    .attr('r', 4)
+    .attr('r', d => radius(d.mag))
 
   stars
     .attr('cx', d => d.coordinates[0])
@@ -80,7 +84,7 @@ d3.json('data/stars.6.json', data => {
     renderStars(
       orion.lowMagLimit(4.5),
       canisMajor.lowMagLimit(4.3),
-      ursaMinor.lowMagLimit(4)
+      ursaMinor.lowMagLimit(6)
     )
   }
 
