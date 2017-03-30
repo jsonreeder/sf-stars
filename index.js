@@ -1,15 +1,15 @@
 // Initialize variables
 
 const width = 2500
-const height = 1200
+const height = 600
 
 const svg = d3.select('div.sky-container')
-  .append('svg')
-  .attr('width', width)
+      .append('svg')
+      .attr('width', width)
   .attr('height', height)
 
 const projection = d3.geo.equirectangular()
-  .rotate([300, 0, -37.77])
+  .rotate([25, 0, -37.77])
   .scale(400)
   .translate([1250, 610])
 
@@ -17,6 +17,40 @@ const path = d3.geo.path()
   .projection(projection)
 
 const graticule = d3.geo.graticule()
+
+const renderStars = (...starArrays) => {
+  const stars = svg.select('.stars')
+    .selectAll('circle')
+    .data([].concat(...starArrays))
+
+  stars.enter()
+    .append('circle')
+    .attr('r', 4)
+
+  stars
+    .attr('cx', d => d.coordinates[0])
+    .attr('cy', d => d.coordinates[1])
+}
+
+class Constellation {
+  constructor () {
+    this.stars = []
+  }
+
+  receiveStar (star) {
+    this.stars.push(star)
+  }
+
+  lowMagLimit (mag) {
+    return (
+      this.stars.filter(star => star.mag <= mag)
+    )
+  }
+}
+
+const orion = new Constellation()
+const canisMajor = new Constellation()
+const ursaMinor = new Constellation()
 
 // Import stars
 
@@ -26,31 +60,28 @@ d3.json('data/stars.6.json', data => {
     svg.select('.graticule')
       .attr('d', path)
 
-    const positionedStars = []
-
     starFeatures.forEach(d => {
       const dataToKeep = {}
       const coordinates = d.geometry.coordinates
-      const p = projection([coordinates[0], coordinates[1]])
-      dataToKeep[0] = p[0]
-      dataToKeep[1] = p[1]
-      dataToKeep.constellation = d.properties.con
-      if (d.properties.mag <= 3.5) {
-        positionedStars.push(dataToKeep)
+      dataToKeep.coordinates = projection([0 - coordinates[0], coordinates[1]])
+      dataToKeep.mag = d.properties.mag
+      switch (d.properties.con) {
+        case 'Ori':
+          orion.receiveStar(dataToKeep)
+          return
+        case 'CMa':
+          canisMajor.receiveStar(dataToKeep)
+          return
+        case 'UMi':
+          ursaMinor.receiveStar(dataToKeep)
       }
     })
 
-    const stars = svg.select('.stars')
-      .selectAll('circle')
-      .data(positionedStars)
-
-    stars.enter()
-      .append('circle')
-      .attr('r', 4)
-
-    stars
-      .attr('cx', d => d[0])
-      .attr('cy', d => d[1])
+    renderStars(
+      orion.lowMagLimit(4.5),
+      canisMajor.lowMagLimit(4.3),
+      ursaMinor.lowMagLimit(4)
+    )
   }
 
   render()
@@ -59,10 +90,10 @@ d3.json('data/stars.6.json', data => {
 // Add to DOM
 
 // Graticule
-svg.append('path')
-  .datum(graticule)
-  .attr('d', path)
-  .attr('class', 'graticule')
+// svg.append('path')
+//   .datum(graticule)
+//   .attr('d', path)
+//   .attr('class', 'graticule')
 
 svg.append('g')
   .attr('class', 'stars')
