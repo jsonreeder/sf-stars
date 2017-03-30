@@ -22,6 +22,12 @@ const radius = d3.scale.linear()
   .domain([-1, 5])
   .range([8, 1])
 
+const handleClick = star => {
+  const parentConstellation = spring.findByAbbreviation(star.con)
+  parentConstellation.isFound = true
+  spring.updateFound()
+}
+
 const renderStars = (...starArrays) => {
   const stars = svg.select('.stars')
     .selectAll('circle')
@@ -30,15 +36,43 @@ const renderStars = (...starArrays) => {
   stars.enter()
     .append('circle')
     .attr('r', d => radius(d.mag))
+    .on('click', d => handleClick(d))
 
   stars
     .attr('cx', d => d.coordinates[0])
     .attr('cy', d => d.coordinates[1])
 }
 
+class Season {
+  constructor (...constellations) {
+    this.constellations = constellations
+    this.found = 0
+  }
+
+  findByAbbreviation (abbreviation) {
+    const matches = this.constellations.filter(c => c.abbreviation === abbreviation)
+    return matches[0]
+  }
+
+  displayFound () {
+    const formattedFound = `${this.found}/${this.constellations.length}`
+
+    d3.select('#constellationsFound')
+      .text(formattedFound)
+  }
+
+  updateFound () {
+    const found = this.constellations.filter(c => c.isFound)
+    this.found = found.length
+    this.displayFound()
+  }
+}
+
 class Constellation {
-  constructor () {
+  constructor (abbreviation) {
+    this.abbreviation = abbreviation
     this.stars = []
+    this.isFound = false
   }
 
   receiveStar (star) {
@@ -52,9 +86,10 @@ class Constellation {
   }
 }
 
-const orion = new Constellation()
-const canisMajor = new Constellation()
-const ursaMinor = new Constellation()
+const orion = new Constellation('Ori')
+const canisMajor = new Constellation('CMa')
+const ursaMinor = new Constellation('UMi')
+const spring = new Season(orion, canisMajor, ursaMinor)
 
 // Import stars
 
@@ -69,6 +104,7 @@ d3.json('data/stars.6.json', data => {
       const coordinates = d.geometry.coordinates
       dataToKeep.coordinates = projection([0 - coordinates[0], coordinates[1]])
       dataToKeep.mag = d.properties.mag
+      dataToKeep.con = d.properties.con
       switch (d.properties.con) {
         case 'Ori':
           orion.receiveStar(dataToKeep)
@@ -82,9 +118,9 @@ d3.json('data/stars.6.json', data => {
     })
 
     renderStars(
-      orion.lowMagLimit(4.5),
-      canisMajor.lowMagLimit(4.3),
-      ursaMinor.lowMagLimit(6)
+      orion.lowMagLimit(3.5),
+      canisMajor.lowMagLimit(3.5),
+      ursaMinor.lowMagLimit(3.5)
     )
   }
 
