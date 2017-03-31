@@ -24,9 +24,14 @@ class Season {
 
   displayFound () {
     const formattedFound = `${this.found}/${this.constellations.length}`
+    const remaining = this.constellations.length - this.found
 
     d3.select('#constellationsFound')
       .text(formattedFound)
+
+    if (remaining > 0) {
+      alert(`You found a constellation!\n Only ${remaining} remaining.`)
+    }
   }
 
   updateFound () {
