@@ -1,6 +1,6 @@
 class Game {
   constructor () {
-    this.currentSeasonIdx = 3
+    this.currentSeasonIdx = 0
     this.seasons = []
     this.setSeasons()
   }

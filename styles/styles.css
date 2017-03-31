@@ -1,5 +1,4 @@
 body {
-  background: gray;
   box-sizing: border-box;
   display: flex;
   font-family: 'Karla', sans-serif;
@@ -16,12 +15,11 @@ body {
 }
 
 .sky-container {
-  align-items: center;
-  background: linear-gradient(#190807 80%, #37150A, #7A3C00);
-  /* background: black; */
+  background: #050B18;
   box-sizing: border-box;
-  justify-content: center;
-  overflow: scroll;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .graticule {
@@ -45,12 +43,13 @@ body {
 
 .dashboard-container {
   align-items: center;
-  background: #7A3C00;
+  bottom: 0px;
   display: flex;
-  flex: 1;
-  min-height: 100px;
   justify-content: space-between;
+  min-height: 100px;
   padding: 30px;
+  position: absolute;
+  width: 100%;
 }
 
 .stats {

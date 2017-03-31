@@ -1,7 +1,7 @@
 // Initialize variables
 
-const width = 2500
-const height = 600
+const width = 2000
+const height = 1000
 
 const svg = d3.select('div.sky-container')
   .append('svg')
@@ -13,12 +13,18 @@ const svg = d3.select('div.sky-container')
 // Fall: 225
 // Winter: 325
 const projection = d3.geo.equirectangular()
-  .rotate([325, 0, -37.77])
-  .scale(400)
-  .translate([1250, 610])
+  .rotate([25, 0, -37.77])
+  .scale(300)
+  .translate([1250, 380])
 
 const path = d3.geo.path()
   .projection(projection)
+
+svg.append('svg:image')
+  .attr('x', 0)
+  .attr('y', 250)
+  .attr('width', width)
+  .attr('xlink:href','data/images/skyline.png')
 
 const game = new Game()
 game.displayStats()
