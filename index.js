@@ -1,91 +1,39 @@
 // Initialize variables
 
-const width = 2500
-const height = 600
+const width = 2000
+const height = 1000
 
 const svg = d3.select('div.sky-container')
   .append('svg')
   .attr('width', width)
   .attr('height', height)
 
+// Spring: 25
+// Summer: 125
+// Fall: 225
+// Winter: 325
 const projection = d3.geo.equirectangular()
   .rotate([25, 0, -37.77])
-  .scale(400)
-  .translate([1250, 610])
+  .scale(300)
+  .translate([1250, 380])
 
 const path = d3.geo.path()
   .projection(projection)
 
-const graticule = d3.geo.graticule()
+svg.append('svg:image')
+  .attr('x', 0)
+  .attr('y', 250)
+  .attr('width', width)
+  .attr('xlink:href','data/images/skyline.png')
+
+const game = new Game()
+game.displayStats()
 
 // Import stars
 
-d3.json('data/stars.json', data => {
-  const constellations = data.constellations
-  const render = () => {
-    svg.select('.graticule')
-      .attr('d', path)
-
-    const positionedStars = []
-    const positionedNames = []
-
-    constellations.forEach(c => {
-      const n = {}
-      n.name = c.name
-      n.ra = +c.RAh * (360 / 24)
-      n.dec = +c.DEd
-      const p = projection([-n.ra, n.dec])
-      n[0] = p[0]
-      n[1] = p[1]
-      positionedNames.push(n)
-
-      c.stars.forEach(d => {
-        d.ra = +d.RAh * (360 / 24)
-        d.dec = +d.DEd
-        const p = projection([-d.ra, d.dec])
-        d[0] = p[0]
-        d[1] = p[1]
-        positionedStars.push(d)
-      })
-    })
-
-    const stars = svg.select('.stars')
-      .selectAll('circle')
-      .data(positionedStars)
-
-    stars.enter()
-      .append('circle')
-      .attr('r', 4)
-
-    stars
-      .attr('cx', d => d[0])
-      .attr('cy', d => d[1])
-
-    const names = svg.select('.stars')
-      .selectAll('text')
-      .data(positionedNames)
-
-    names.enter()
-      .append('text')
-      .attr('r', 90)
-
-    names
-      .attr('x', d => d[0])
-      .attr('y', d => d[1])
-      .text(d => d.name)
-      .attr('class', 'constellation-label')
-  }
-
-  render()
-})
+game.parseData()
 
 // Add to DOM
-
-// Graticule
-// svg.append('path')
-//   .datum(graticule)
-//   .attr('d', path)
-//   .attr('class', 'graticule')
 
 svg.append('g')
   .attr('class', 'stars')

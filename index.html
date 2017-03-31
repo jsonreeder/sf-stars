@@ -11,11 +11,27 @@
   </head>
   <body>
     <div class="game-container">
-      <div class="sky-container"></div>
-      <div class="title">
-        <h1>SF Stars</h1>
+      <div class="sky-container">
+        <div class="dashboard-container">
+          <table class="stats">
+            <tr>
+              <td>Season</td>
+              <td id="season" class="right"></td>
+            </tr>
+            <tr>
+              <td>Constellations Found</td>
+              <td id="constellationsFound" class="right"></td>
+            </tr>
+          </table>
+          <div class="title">
+            <h1>SF Stars</h1>
+          </div>
+        </div>
       </div>
     </div>
+    <script src="constellation.js"></script>
+    <script src="season.js"></script>
+    <script src="game.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
