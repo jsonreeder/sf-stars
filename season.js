@@ -33,5 +33,13 @@ class Season {
     const found = this.constellations.filter(c => c.isFound)
     this.found = found.length
     this.displayFound()
+    const isVictorious = this.found === this.constellations.length
+    if (isVictorious) {
+      this.announceVictory()
+    }
+  }
+
+  announceVictory () {
+    alert("Congratulations! \nYou've found all of the constellations")
   }
 }
