@@ -8,32 +8,32 @@ class Game {
   setSeasons () {
     const constellationsBySeason = {
       'spring': [
-        'Ori',
-        'Cas',
-        'CMa',
-        'UMi',
-        'Tau'
+        ['Ori', 'Orion'],
+        ['Cas', 'Cassiopeia'],
+        ['CMa', 'Canis Major'],
+        ['UMi', 'Ursa Minor'],
+        ['Tau', 'Taurus']
       ],
       'summer': [
-        'Leo',
-        'UMi',
-        'Cas',
-        'Cyg',
-        'Boo'
+        ['Leo', 'Leo'],
+        ['UMi', 'Ursa Minor'],
+        ['Cas', 'Cassiopeia'],
+        ['Cyg', 'Cygnus'],
+        ['Boo', 'Bootes']
       ],
       'fall': [
-        'Boo',
-        'UMi',
-        'Cas',
-        'UMa',
-        'Cyg'
+        ['Boo', 'Bootes'],
+        ['UMi', 'Ursa Minor'],
+        ['Cas', 'Cassiopeia'],
+        ['UMa', 'Ursa Major'],
+        ['Cyg', 'Cygnus']
       ],
       'winter': [
-        'UMi',
-        'UMa',
-        'Ori',
-        'Tau',
-        'And'
+        ['UMi', 'Ursa Minor'],
+        ['UMa', 'Ursa Major'],
+        ['Ori', 'Orion'],
+        ['Tau', 'Taurus'],
+        ['And', 'Andromeda']
       ]
     }
 
@@ -49,14 +49,12 @@ class Game {
     return this.seasons[this.currentSeasonIdx]
   }
 
-  displayStats () {
-    d3.select('#season')
-      .text(this.currentSeason().name)
-  }
-
   handleClick (star) {
     const season = this.currentSeason()
     const parentConstellation = season.findByAbbreviation(star.con)
+    if (!parentConstellation.isFound) {
+      alert(`You found ${parentConstellation.name}!`)
+    }
     parentConstellation.isFound = true
     season.updateFound()
   }
@@ -78,6 +76,12 @@ class Game {
     stars
       .attr('cx', d => d.coordinates[0])
       .attr('cy', d => d.coordinates[1])
+  }
+
+  clearStars () {
+    const stars = svg.select('.stars')
+      .selectAll('circle')
+      .remove()
   }
 
   parseData () {
@@ -112,5 +116,31 @@ class Game {
 
       render()
     })
+  }
+
+  displayStats () {
+    this.currentSeason().displayStats()
+  }
+
+  changeSeason () {
+    this.clearStars()
+    let rotation
+    switch (this.currentSeasonIdx) {
+      case 0:
+        rotation = 125
+        break
+      case 1:
+        rotation = 225
+        break
+      case 2:
+        rotation = 325
+        break
+      default:
+        rotation = 25
+    }
+    projection.rotate([rotation, 0, -37.77])
+    this.currentSeasonIdx = (this.currentSeasonIdx + 1) % 4
+    this.parseData()
+    this.displayStats()
   }
 }
