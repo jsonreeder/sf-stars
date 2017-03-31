@@ -27,3 +27,10 @@ game.inviteToClick()
 
 svg.append('g')
   .attr('class', 'stars')
+
+const modal = d3.select('.modal')
+modal
+  .on('click', () => {
+    const modal = d3.select('.modal')
+    modal.style('display', 'none')
+  })
