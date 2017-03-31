@@ -10,12 +10,12 @@ When the MVP is complete, users will be able to...
    - Stars visible to the naked eye in San Francisco after sunset, stretched over a rounded sky
    - The skyline of downtown SF
 2. Be invited to click on a star
-   - Certain stars will shine with greater brilliance than the rest, inviting users to click on them (see 'Wireframes & Flow' below)
+   - An announcement will invite users to click on stars to find constellations
 3. Discover a constellation
-   - Clicking on a star displays an image or a stick figure of the constellation it is a member of
-4. Win by discovering all constellations
+   - Clicking on a star displays the name of the constellation it is a member of
+4. Win a season by discovering all constellations
    - A counter tracks the number of constellations remaining to be discovered
-   - After discovering all constellations, users are rewarded by a modal announcing their victory
+   - After discovering all constellations in a given season, users are rewarded by an announcement of their victory
 5. Move to another season
    - After winning, the sky is reset in the next season, and the process begins again
 6. Read a production README
@@ -26,11 +26,9 @@ The app opens immediately to its main view, of the night sky of San Francisco:
 
 [[file:wireframes/sf_stars.jpg]]
 
-A star shines very brightly to suggest that it should be clicked on:
+Users are encouraged to click on a star
 
-[[file:wireframes/star_shine.jpg]]
-
-When the user clicks on that star, a small popping noise plays, an image of the constellation and its name appears, and the "constellations found" count increases:
+When the user clicks on that star, the constellation name appears and the "constellations found" count increases:
 
 [[file:wireframes/constellation_found.jpg]]
 
