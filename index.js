@@ -23,6 +23,14 @@ svg.append('svg:image')
 const game = new Game()
 game.displayStats()
 game.parseData()
+game.inviteToClick()
 
 svg.append('g')
   .attr('class', 'stars')
+
+const modal = d3.select('.modal')
+modal
+  .on('click', () => {
+    const modal = d3.select('.modal')
+    modal.style('display', 'none')
+  })

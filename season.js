@@ -46,7 +46,12 @@ class Season {
   }
 
   announceVictory () {
-    alert("Congratulations! \nYou've found all of the constellations")
+    const modal = d3.select('.modal')
+    const modalContent = d3.select('.modal-content')
+    modal
+      .style('display', 'flex')
+    modalContent
+      .text("Congratulations! You've found all of the constellations. Get read for the next season.")
     game.changeSeason()
   }
 }

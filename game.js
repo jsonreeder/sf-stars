@@ -50,10 +50,20 @@ class Game {
   }
 
   handleClick (star) {
+    const modal = d3.select('.modal')
+    const modalContent = d3.select('.modal-content')
     const season = this.currentSeason()
     const parentConstellation = season.findByAbbreviation(star.con)
-    if (!parentConstellation.isFound) {
-      alert(`You found ${parentConstellation.name}!`)
+    if (parentConstellation.isFound) {
+      modal
+        .style('display', 'flex')
+      modalContent
+        .text(`That's ${parentConstellation.name}. You already found it!`)
+    } else {
+      modal
+        .style('display', 'flex')
+      modalContent
+        .text(`You found ${parentConstellation.name}!`)
     }
     parentConstellation.isFound = true
     season.updateFound()
@@ -68,10 +78,14 @@ class Game {
           .selectAll('circle')
       .data([].concat(...starArrays))
 
+    const modal = d3.select('.modal')
+
     stars.enter()
       .append('circle')
       .attr('r', d => radius(d.mag))
-      .on('click', d => this.handleClick(d))
+      .on('click', d => {
+        this.handleClick(d)
+      })
 
     stars
       .attr('cx', d => d.coordinates[0])
@@ -142,5 +156,14 @@ class Game {
     this.currentSeasonIdx = (this.currentSeasonIdx + 1) % 4
     this.parseData()
     this.displayStats()
+  }
+
+  inviteToClick () {
+    const modal = d3.select('.modal')
+    const modalContent = d3.select('.modal-content')
+    modal
+      .style('display', 'flex')
+    modalContent
+      .text('Click on stars to discover constellations.')
   }
 }
