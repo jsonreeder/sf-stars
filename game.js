@@ -18,8 +18,8 @@ class Game {
         ['Leo', 'Leo'],
         ['UMi', 'Ursa Minor'],
         ['Cas', 'Cassiopeia'],
-        ['Cyg', 'Cygnus'],
-        ['Boo', 'Bootes']
+        ['Boo', 'Bootes'],
+        ['Her', 'Hercules']
       ],
       'fall': [
         ['Boo', 'Bootes'],
