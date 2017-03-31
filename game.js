@@ -143,4 +143,8 @@ class Game {
     this.parseData()
     this.displayStats()
   }
+
+  inviteToClick () {
+    alert("Click on stars to discover constellations.\n Find all constellations to win.")
+  }
 }

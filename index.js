@@ -23,6 +23,7 @@ svg.append('svg:image')
 const game = new Game()
 game.displayStats()
 game.parseData()
+game.inviteToClick()
 
 svg.append('g')
   .attr('class', 'stars')
