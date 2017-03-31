@@ -1,3 +1,70 @@
 #+TITLE: SF Stars
 SF Stars is an urban planetarium for the city of San Francisco built in JavaScript with the help of the D3.js library.
+
+[[https://jsonreeder.github.io/sf-stars/][See the stars]]
+* About
+SF Stars allows users to see the San Francisco night sky and to learn about the constellations visible to the naked eye. It is simple, easy to use, and requires nothing more to use than a modern web browser. It's goal is to help residents of SF connect to the stars above them.
+
+I built most of the app in a week-long sprint, and in that time I focused on meeting the following MVP features:
+1. See the night sky of SF
+2. Be invited to click on a star
+3. Discover a constellation
+4. Win by discovering all constellations in the sky for a given season
+5. Move to another season
+
+Here's a screenshot of the main view:
+
+[[file:docs/screenshots/sf_stars.png]]
+* Noteworthy Features
+** d3
+The stars shown in the app are meant to represent the real stars visible in the night sky of San Francisco. To accurately map the astronomical data, I used [[https://d3js.org/][D3.js]], a spectacular library for data visualization.
+
+D3 makes mapping data relatively straightforward. There are really only three steps necessary: defining a projection, appending that projection to the page, and then appending data to the projection. 
+
+The relevant code looks like this:
+
+#+BEGIN_SRC js
+const svg = d3.select('div.sky-container')
+  .append('svg')
+  .attr('width', width)
+  .attr('height', height)
+
+const projection = d3.geo.equirectangular()
+  .rotate([25, 0, -37.77])
+  .scale(300)
+  .translate([1250, 380])
+
+const path = d3.geo.path()
+  .projection(projection)
+
+svg.append('g')
+  .attr('class', 'stars')
+#+END_SRC
+
+We define an svg, which will contain the projection, define the projection, set a path to connect the two, and then append the stars.
+
+The most interesting part of that process is creating the projection. Here I've chosen an ~equirectangular~ projection, essentially a flat grid-like mapping of data. That choice worked best for the perspective of the app, which is essentially a rectangle. Other projections can be set simply by changing the name in the above code. Other interesting options are ~azimuthalEquidistant~ and ~orthographic~, which both offer a more rounded perspective.
+** The Skyline
+One of the parts of the app I like the most personally is the skyline image. That took a few tries. After failing to get the required perspective from a number of different parts of the city, I finally succeeded on [2017-03-30 Thu] from Treasure Island, where I got the final image just after sunset. I found I was so focused on getting the right shot, checking my compass and camera, that it took me a minute to notice Orion starting to emerge over SOMA.
+** An OO approach
+I chose to take a more object oriented approach than most of the examples of d3 visualizations I've seen in the wild. My motivation here was to keep the code as modular as possible while handling game logic.
+
+The ~Game~ class held most of the logic, including keeping track of the current season, handling clicks, and rendering the stars. Though the ~Season~ class also did some serious legwork, tracking which constellations had already been found and displaying statistics.
+
+Code for those classes as well as the additional ~Constellation~ class can be found here:
+- [[file:season.js][season]]
+- [[file:game.js][game]]
+- [[file:constellation.js][constellation]]
+* Conventions
+
+I used [[https://github.com/feross/standard][JavaScript Standard Style]] in this project, and quite enjoyed it.
+
 The development README is available [[file:docs/README.org][here]].
+* License
+This work is freely available under the [[https://www.gnu.org/licenses/gpl-3.0.en.html][GNU Public License]]. That includes the background image. Feel free to use it if you'd like.
+* Gratitude
+A number of people helped make this project a success:
+- [[http://pmplewa.github.io/#/?_k=t06rhq][Philipp Plewa]], for a spectacular intro to starmaps in d3
+- [[https://github.com/ofrohn/d3-celestial][d3-celestial]], for astronomical data, and a model of how to work with stars in d3
+- [[https://github.com/ajtoo/][Amos]], for help with flexboxes
+- [[http://miltreeder.com/][Porkchop]], for teaching me night photography
