@@ -6,14 +6,16 @@ class Season {
     this.setConstellations(constellationAbbreviations)
   }
 
-  createByAbbreviation (abbreviation) {
-    return new Constellation(abbreviation)
+  createByAbbreviation (abbreviation, name) {
+    return new Constellation(abbreviation, name)
   }
 
-  setConstellations (abbreviations) {
-    this.constellations = abbreviations.map(a => (
-      this.createByAbbreviation(a)
-    ))
+  setConstellations (abbreviationsNames) {
+    this.constellations = abbreviationsNames.map(an => {
+      const abbreviation = an[0]
+      const name = an[1]
+      return this.createByAbbreviation(abbreviation, name)
+    })
     this.updateFound()
   }
 
@@ -22,8 +24,12 @@ class Season {
     return matches[0]
   }
 
-  displayFound () {
+  displayStats () {
     const formattedFound = `${this.found}/${this.constellations.length}`
+    const remaining = this.constellations.length - this.found
+
+    d3.select('#season')
+      .text(this.name)
 
     d3.select('#constellationsFound')
       .text(formattedFound)
@@ -32,6 +38,15 @@ class Season {
   updateFound () {
     const found = this.constellations.filter(c => c.isFound)
     this.found = found.length
-    this.displayFound()
+    this.displayStats()
+    const isVictorious = this.found === this.constellations.length
+    if (isVictorious) {
+      this.announceVictory()
+    }
+  }
+
+  announceVictory () {
+    alert("Congratulations! \nYou've found all of the constellations")
+    game.changeSeason()
   }
 }

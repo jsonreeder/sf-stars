@@ -1,6 +1,7 @@
 class Constellation {
-  constructor (abbreviation) {
+  constructor (abbreviation, name) {
     this.abbreviation = abbreviation
+    this.name = name
     this.stars = []
     this.isFound = false
   }
