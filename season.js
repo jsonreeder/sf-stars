@@ -51,7 +51,7 @@ class Season {
     modal
       .style('display', 'flex')
     modalContent
-      .text("Congratulations! You've found all of the constellations. Get read for the next season.")
+      .text("Congratulations! You've found all of the constellations. Get ready for the next season.")
     game.changeSeason()
   }
 }
